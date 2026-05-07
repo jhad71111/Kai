@@ -1,0 +1,25 @@
+name: Auto Update System
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: تحميل المشروع
+      uses: actions/checkout@v4
+
+    - name: تنفيذ تعديل بسيط
+      run: |
+        echo "النظام شغال" >> log.txt
+
+    - name: حفظ التعديلات
+      run: |
+        git config user.name "bot"
+        git config user.email "bot@github.com"
+        git add .
+        git commit -m "تحديث تلقائي" || echo "لا يوجد تغيير"
+        git push
